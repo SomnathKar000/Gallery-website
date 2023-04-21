@@ -27,6 +27,7 @@ app.use("/api/v1/images", ImageControlRoutes);
 app.use(errorMiddleware);
 app.use(notFoundmiddleware);
 
+// Start the server
 const start = async () => {
   try {
     await connectDB(DBURL);
