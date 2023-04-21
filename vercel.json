@@ -12,12 +12,18 @@
   ],
   "routes": [
     { "src": "/api/v1/(.*)", "dest": "/backend/index.js" },
-    { "src": "/(.*)", "dest": "/frontend/build/index.html" }
-  ],
-  "rewrites": [
+    { "src": "/static/(.*)", "dest": "/frontend/build/static/$1" },
+    { "src": "/favicon.ico", "dest": "/frontend/build/favicon.ico" },
+    { "src": "/manifest.json", "dest": "/frontend/build/manifest.json" },
+    { "src": "/logo192.png", "dest": "/frontend/build/logo192.png" },
+    { "src": "/logo512.png", "dest": "/frontend/build/logo512.png" },
+    { "src": "/robots.txt", "dest": "/frontend/build/robots.txt" },
+    { "src": "/sitemap.xml", "dest": "/frontend/build/sitemap.xml" },
     {
-      "source": "/api/v1/(.*)",
-      "destination": "/backend/index.js"
-    }
+      "src": "/sitemap_index.xml",
+      "dest": "/frontend/build/sitemap_index.xml"
+    },
+    { "src": "/.well-known/(.*)", "dest": "/frontend/build/.well-known/$1" },
+    { "src": "/(.*)", "dest": "/frontend/build/index.html" }
   ]
 }
