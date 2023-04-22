@@ -20,20 +20,20 @@ const initialState = {
 const GalleryContext = createContext();
 
 export const GalleryContextProvider = ({ children }) => {
+  const hostname = window.location.hostname;
+  console.log(hostname);
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const changeMode = () => {
     dispatch({ type: "CHANGE_MODE" });
   };
   const createUser = async (email, password, userName) => {
     try {
-      const response = await axios.post(
-        process.env.REACT_APP_HOST + "/api/v1/create-user",
-        {
-          email,
-          password,
-          userName,
-        }
-      );
+      const response = await axios.post(hostname + "/api/v1/create-user", {
+        email,
+        password,
+        userName,
+      });
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         return true;
@@ -46,13 +46,10 @@ export const GalleryContextProvider = ({ children }) => {
   };
   const loginUser = async (email, password) => {
     try {
-      const response = await axios.post(
-        process.env.REACT_APP_HOST + "/api/v1/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(hostname + "/api/v1/login", {
+        email,
+        password,
+      });
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         openAlert(response.data.msg, "success");
@@ -68,18 +65,17 @@ export const GalleryContextProvider = ({ children }) => {
     let token = localStorage.getItem("token");
     try {
       if (token) {
-        const response = await axios.post(
-          process.env.REACT_APP_HOST + "/api/v1/get-user",
-          {
-            token,
-            success: true,
-          }
-        );
+        const response = await axios.post(hostname + "/api/v1/get-user", {
+          token,
+          success: true,
+        });
         if (response.data.success) {
           dispatch({
             type: "UPDATE_USER_DATA",
             payload: response.data.user.username,
           });
+        } else {
+          localStorage.removeItem("token");
         }
       }
     } catch (err) {
@@ -97,7 +93,7 @@ export const GalleryContextProvider = ({ children }) => {
     dispatch({ type: "SINGLE_IMAGR_UPLOAD_START" });
     try {
       const response = await axios.post(
-        process.env.REACT_APP_HOST + "/api/v1/images/create-image",
+        hostname + "/api/v1/images/create-image",
         data
       );
       if (response.data.success) {
@@ -118,16 +114,12 @@ export const GalleryContextProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       dispatch({ type: "IMAGE_LOADING_START" });
-      const response = await axios.post(
-        process.env.REACT_APP_HOST + "/api/v1/images",
-        {
-          token,
-          success: true,
-        }
-      );
+      const response = await axios.post(hostname + "/api/v1/images", {
+        token,
+        success: true,
+      });
       if (response.data.success) {
         dispatch({ type: "FETCH_ALL_IMAGED", payload: response.data.images });
-        console.log(response.data.images);
       } else {
         dispatch({ type: "IMAGE_LOADING_ERROR" });
       }
@@ -137,7 +129,7 @@ export const GalleryContextProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.patch(
-        `${process.env.REACT_APP_HOST}/api/v1/images/delete-images/${id}`,
+        `${hostname}/api/v1/images/delete-images/${id}`,
         {
           token,
           success: true,
@@ -157,7 +149,7 @@ export const GalleryContextProvider = ({ children }) => {
   const EditImage = async (id, title) => {
     const token = localStorage.getItem("token");
     const response = await axios.patch(
-      `${process.env.REACT_APP_HOST}/api/v1/images/updatae-image/${id}`,
+      `${hostname}/api/v1/images/updatae-image/${id}`,
       {
         token,
         title,
