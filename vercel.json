@@ -2,29 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/index.js",
-      "use": "@vercel/node"
+      "src": "frontend/package.json",
+      "use": "npm",
+      "config": {
+        "production": true,
+        "buildCommand": "npm run build",
+        "outputDirectory": "frontend/build"
+      }
     },
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "npm install && npm run build",
-        "outputDirectory": "build"
-      }
+      "src": "backend/index.js",
+      "use": "@vercel/node"
     }
   ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "backend/index.js" },
-    { "src": "/(.*)", "dest": "frontend/build/index.html" }
-  ],
-  "env": {
-    "PORT": "5000"
-  },
-  "build": {
-    "commands": {
-      "build": "cd frontend && npm install && npm run build",
-      "install": "cd backend && npm install"
-    }
-  }
+  "routes": [{ "src": "/(.*)", "dest": "backend/index.js" }]
 }
