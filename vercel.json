@@ -1,17 +1,4 @@
 {
-  "builds": [
-    { "src": "backend/index.js", "use": "@vercel/node" },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "cd frontend && npm install --force && npm run build",
-        "outputDirectory": "frontend/build"
-      }
-    }
-  ],
-  "routes": [
-    { "src": "/api/v1/(.*)", "dest": "/backend/index.js" },
-    { "src": "/(.*)", "dest": "/frontend/build/index.html" }
-  ]
+  "builds": [{ "src": "backend/index.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/api/v1/(.*)", "dest": "/backend/index.js" }]
 }
