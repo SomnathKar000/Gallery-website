@@ -9,22 +9,22 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "cd frontend && npm install && npm run build",
-        "outputDirectory": "frontend/build"
+        "buildCommand": "npm install && npm run build",
+        "outputDirectory": "build"
       }
     }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "backend/index.js" },
-    { "src": "/(.*)", "dest": "frontend/build/$1" }
+    { "src": "/(.*)", "dest": "frontend/build/index.html" }
   ],
   "env": {
     "PORT": "5000"
   },
   "build": {
     "commands": {
-      "install": "cd frontend && npm install && cd ../backend && npm install",
-      "build": "concurrently \"cd frontend && npm start\" \"cd backend && npm start\""
+      "build": "cd frontend && npm install && npm run build",
+      "install": "cd backend && npm install"
     }
   }
 }
