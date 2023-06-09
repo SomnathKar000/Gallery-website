@@ -2,7 +2,7 @@ const User = require("../models/authModel");
 const customError = require("../errors/error");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const jwtSecret = "amisomnath";
+const jwtSecret = process.env.JWT_SECRET;
 
 const createUser = async (req, res) => {
   const { userName, email, password } = req.body;

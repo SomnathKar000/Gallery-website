@@ -92,7 +92,6 @@ const reducer = (state, action) => {
     tempImages = tempImages.filter((item) =>
       item.name.toLowerCase().startsWith(name.toLowerCase())
     );
-    console.log(tempImages);
     return { ...state, searched_images: tempImages };
   }
 

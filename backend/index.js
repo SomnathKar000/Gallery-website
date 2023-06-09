@@ -1,8 +1,6 @@
 require("dotenv").config();
 require("express-async-errors");
-const DBURL =
-  "mongodb+srv://Somnath000:som007007@nodeexpressprojects.c4mduyu.mongodb.net/gallery?retryWrites=true&w=majority";
-
+const DBURL = process.env.DB_URL;
 const cors = require("cors");
 const express = require("express");
 const authRoutes = require("./routes/auth");
