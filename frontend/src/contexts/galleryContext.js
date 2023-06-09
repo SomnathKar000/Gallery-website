@@ -20,7 +20,7 @@ const initialState = {
 const GalleryContext = createContext();
 
 export const GalleryContextProvider = ({ children }) => {
-  const hostname = process.env.REACT_APP_HOST;
+  const hostname = process.env.REACT_APP_HOST || window.location.origin;
   console.log(hostname);
 
   const [state, dispatch] = useReducer(reducer, initialState);
