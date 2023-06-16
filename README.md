@@ -30,6 +30,7 @@ To run the website locally, follow these steps:
      - `JWT_SECRET=<your-jwt-secret>`: The secret key used for JWT authentication
      - `REACT_APP_HOST=<your-backend-server-url>`: The URL of the backend server (e.g., http://localhost:5000 if running locally)
 
+
 ## Usage
 
 1. Start the backend server: `npm start` (from the project backend directory)
